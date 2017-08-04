@@ -151,23 +151,12 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
             }
             (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
             self.dismiss(animated: true, completion: {
-                
             })
-
 }
-        
-        
-        
-        
-        
     }
     @IBOutlet weak var secondImageView: UIImageView!
-    
     @IBOutlet weak var ArticleImageView: UIImageView!
-    
     @IBOutlet weak var articleTitleTextField: UITextField!
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(articleTitle)
@@ -178,29 +167,19 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
         else {
         do {
             let tasks = try self.context.fetch(ArticleCoreData.fetchRequest())
-            
             let articles = (tasks as? [ArticleCoreData])!
-            for element in articles where articleTitle == element.title{
+            for element in articles where articleTitle == element.title {
                 gradientImageView.isHidden = true
                 selectImageLabel.isHidden = true
                 print(element.content)
-               
                 secondImageView.isHidden = true
                 articleTitleTextField.text = element.title
                 if let content = element.content {
                     articleContentTextView.text = content }
                 ArticleImageView.image = UIImage(data: element.image as! Data)
-                
-            
             }
-            
-            //self.collectionView.reloadData()
         } catch {}
         }
-        
-        
-        
-        
         saveButton.layer.shadowColor = UIColor(colorLiteralRed: 247/255, green: 174/255, blue: 163/255, alpha: 1).cgColor
         saveButton.layer.cornerRadius = 22
         saveButton.layer.shadowRadius = 10
@@ -214,8 +193,6 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
     /*
     // MARK: - Navigation
 

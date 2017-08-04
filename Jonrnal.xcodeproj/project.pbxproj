@@ -110,6 +110,7 @@
 				12B511EF1F3400670090EDC2 /* Resources */,
 				26D222ECFA2AA55B286B48B8 /* [CP] Embed Pods Frameworks */,
 				9766AF3D2D1E6AC246A8F2A9 /* [CP] Copy Pods Resources */,
+				12B5120D1F3463310090EDC2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -169,6 +170,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		12B5120D1F3463310090EDC2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		26D222ECFA2AA55B286B48B8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -393,6 +407,7 @@
 				12B512081F3400670090EDC2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
