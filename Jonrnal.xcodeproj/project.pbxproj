@@ -13,6 +13,8 @@
 		12B511FD1F3400670090EDC2 /* Jonrnal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 12B511FB1F3400670090EDC2 /* Jonrnal.xcdatamodeld */; };
 		12B511FF1F3400670090EDC2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12B511FE1F3400670090EDC2 /* Assets.xcassets */; };
 		12B512021F3400670090EDC2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 12B512001F3400670090EDC2 /* LaunchScreen.storyboard */; };
+		12B5120A1F3403F20090EDC2 /* ArticleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B512091F3403F20090EDC2 /* ArticleCell.swift */; };
+		12B5120C1F34094B0090EDC2 /* AddJournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B5120B1F34094B0090EDC2 /* AddJournalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		12B511FE1F3400670090EDC2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		12B512011F3400670090EDC2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		12B512031F3400670090EDC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12B512091F3403F20090EDC2 /* ArticleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleCell.swift; sourceTree = "<group>"; };
+		12B5120B1F34094B0090EDC2 /* AddJournalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddJournalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 			children = (
 				12B511F41F3400670090EDC2 /* AppDelegate.swift */,
 				12B511F61F3400670090EDC2 /* ViewController.swift */,
+				12B5120B1F34094B0090EDC2 /* AddJournalViewController.swift */,
+				12B512091F3403F20090EDC2 /* ArticleCell.swift */,
 				12B511F81F3400670090EDC2 /* Main.storyboard */,
 				12B511FE1F3400670090EDC2 /* Assets.xcassets */,
 				12B512001F3400670090EDC2 /* LaunchScreen.storyboard */,
@@ -140,9 +146,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12B5120A1F3403F20090EDC2 /* ArticleCell.swift in Sources */,
 				12B511FD1F3400670090EDC2 /* Jonrnal.xcdatamodeld in Sources */,
 				12B511F71F3400670090EDC2 /* ViewController.swift in Sources */,
 				12B511F51F3400670090EDC2 /* AppDelegate.swift in Sources */,
+				12B5120C1F34094B0090EDC2 /* AddJournalViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
