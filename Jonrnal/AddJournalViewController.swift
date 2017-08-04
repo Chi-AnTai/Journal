@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 extension UIImageView {
     func addGradientLayer(frame: CGRect) {
         let gradient = CAGradientLayer()
@@ -20,7 +21,11 @@ extension UIImageView {
 }
 
 
-class AddJournalViewController: UIViewController {
+class AddJournalViewController: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    
+    @IBOutlet weak var articleContentTextView: UITextView!
+    var articleTitle: String?
+    let imagePickerController = UIImagePickerController()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     @IBAction func closeButtonAction(_ sender: UIButton) {
@@ -28,17 +33,39 @@ class AddJournalViewController: UIViewController {
             return
         }
     }
+    
+    @IBOutlet weak var gradientImageView: UIImageView!
+    
+    @IBOutlet weak var selectImageLabel: UILabel!
     @IBAction func selectPhotoAction(_ sender: UIButton) {
+        
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.delegate = self
+        
+        imagePickerController.mediaTypes = [kUTTypeImage as NSString as String]
+        present(imagePickerController, animated: true, completion: nil)
         print("changing")
+        
     }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        let imageNSURL = info[UIImagePickerControllerOriginalImage] as? NSURL
+//        //print("videoURL:\(String(describing: videoURL))")
+//        UIImage(data: Data)
+        gradientImageView.isHidden = true
+        ArticleImageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        secondImageView.isHidden = true
+        selectImageLabel.text = nil
+        
+        self.dismiss(animated: true, completion: nil) }
+    
+    
     @IBOutlet weak var saveButton: UIButton!
     
     @IBAction func saveButtonAction(_ sender: UIButton) {
-        print("firstCheck")
-        print(ArticleImageView.image)
-        
-        if articleTitleTextField.text == "" {
-            print("i am here")
+                if articleTitleTextField.text == "" {
+            print(articleContentTextView.text)
         let alertController = UIAlertController(title: "錯誤", message: "沒有標題", preferredStyle: .alert)
             
         let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (UIAlertAction) in
@@ -52,7 +79,7 @@ class AddJournalViewController: UIViewController {
             return
             
         }
-        if articleContentTextField.text == "" {
+        if articleContentTextView.text == "" {
             let alertController = UIAlertController(title: "錯誤", message: "沒有內文", preferredStyle: .alert)
             
             let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (UIAlertAction) in
@@ -76,16 +103,52 @@ class AddJournalViewController: UIViewController {
                 animated: true,
                 completion: nil)
         return}
+        if (articleTitle != nil)  {
+            print("uploading")
+            do {
+                let tasks = try self.context.fetch(ArticleCoreData.fetchRequest())
+                
+                let articles = (tasks as? [ArticleCoreData])!
+                for element in articles where articleTitle == element.title{
+                    if let title = articleTitleTextField.text, let content = articleContentTextView.text {
+                        element.title = title
+                        element.content = content
+                    }
+                    if let articleImage = ArticleImageView.image {
+                        if let imageData = UIImagePNGRepresentation(articleImage) {
+                            element.image = NSData(data: imageData)
+                        }
+                    }
+                    
+                    
+                    
+                 (UIApplication.shared.delegate as? AppDelegate)?.saveContext()   
+                    
+                }
+            print("uploading success")
+            }
+                catch {}
+            
+        self.dismiss(animated: true, completion: {
+            
+        })
+        return
+        }
         else {
+        print("normal saving")
+        let task = ArticleCoreData(context: context)
+            if let title = articleTitleTextField.text, let content = articleContentTextView.text {
+            task.title = title
+            task.content = content
+            }
         
-//        let task = ArticleCoreData(context: context)
-//        task.title = articleTitleTextField.text
-//        task.content = articleContentTextField.text
-//        if let articleImage = ArticleImageView.image {
-//        if let imageData = UIImagePNGRepresentation(articleImage) {
-//            task.image = NSData(data: imageData)
-//        }
-//            }
+        
+        if let articleImage = ArticleImageView.image {
+        if let imageData = UIImagePNGRepresentation(articleImage) {
+            task.image = NSData(data: imageData)
+        }
+            }
+            (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
 }
         
         
@@ -99,12 +162,39 @@ class AddJournalViewController: UIViewController {
     
     @IBOutlet weak var articleTitleTextField: UITextField!
 
-    @IBOutlet weak var articleContentTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        ArticleImageView.addGradientLayer(frame: ArticleImageView.frame)
+        print(articleTitle)
+        if articleTitle == nil {
+        gradientImageView.addGradientLayer(frame: ArticleImageView.frame)
         ArticleImageView.tintColor = UIColor.white
-        secondImageView.tintColor = UIColor.white
+            secondImageView.tintColor = UIColor.white }
+        else {
+        do {
+            let tasks = try self.context.fetch(ArticleCoreData.fetchRequest())
+            
+            let articles = (tasks as? [ArticleCoreData])!
+            for element in articles where articleTitle == element.title{
+                gradientImageView.isHidden = true
+                print(element.content)
+               
+                secondImageView.isHidden = true
+                articleTitleTextField.text = element.title
+                if let content = element.content {
+                    articleContentTextView.text = content }
+                ArticleImageView.image = UIImage(data: element.image as! Data)
+                
+            
+            }
+            
+            //self.collectionView.reloadData()
+        } catch {}
+        }
+        
+        
+        
+        
         
         saveButton.layer.cornerRadius = 22
 

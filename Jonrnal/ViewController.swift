@@ -13,6 +13,16 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let cell = sender as? ArticleCell {
+            if let targetViewController = segue.destination as? AddJournalViewController {
+                
+                targetViewController.articleTitle = cell.artiecleTitleLabel.text
+            
+            }
+        }
+    }
+    
     
     
     
@@ -42,8 +52,10 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
             let tasks = try self.context.fetch(ArticleCoreData.fetchRequest())
             
             articles = (tasks as? [ArticleCoreData])!
+            
             //self.collectionView.reloadData()
         } catch {}
+        articleTableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {

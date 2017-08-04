@@ -18,8 +18,4 @@ class ArticleCell: UITableViewCell {
 
 }
 
-struct article {
-    var title: String
-    var content: String
-    var image: UIImage
-}
+
