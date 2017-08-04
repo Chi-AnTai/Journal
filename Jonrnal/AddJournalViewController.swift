@@ -54,6 +54,7 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
 //        //print("videoURL:\(String(describing: videoURL))")
 //        UIImage(data: Data)
         gradientImageView.isHidden = true
+        selectImageLabel.isHidden = true
         ArticleImageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
         secondImageView.isHidden = true
         selectImageLabel.text = nil
@@ -177,6 +178,7 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
             let articles = (tasks as? [ArticleCoreData])!
             for element in articles where articleTitle == element.title{
                 gradientImageView.isHidden = true
+                selectImageLabel.isHidden = true
                 print(element.content)
                
                 secondImageView.isHidden = true
@@ -195,8 +197,11 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
         
         
         
-        
+        saveButton.layer.shadowColor = UIColor(colorLiteralRed: 247/255, green: 174/255, blue: 163/255, alpha: 1).cgColor
         saveButton.layer.cornerRadius = 22
+        saveButton.layer.shadowRadius = 10
+        saveButton.layer.shadowOffset = CGSize(width: 0, height: 1)
+        saveButton.layer.shadowOpacity = 0.5
 
         // Do any additional setup after loading the view.
     }

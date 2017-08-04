@@ -15,6 +15,7 @@ class ArticleCell: UITableViewCell {
 
     @IBOutlet weak var artiecleTitleLabel: UILabel!
 
+    @IBOutlet weak var circleImageView: UIImageView!
 
 }
 

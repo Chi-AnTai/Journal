@@ -36,8 +36,17 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = articleTableView.dequeueReusableCell(withIdentifier: "articleCell", for: indexPath) as! ArticleCell
+        cell.articleImageView.clipsToBounds = true
+        cell.articleImageView.layer.cornerRadius = 8
+        
+        cell.circleImageView.clipsToBounds = true
+        cell.circleImageView.layer.borderWidth = 0.5
+        cell.circleImageView.layer.borderColor = UIColor(colorLiteralRed: 171/225, green: 179/225, blue: 176/225, alpha: 1).cgColor
+        
+        cell.circleImageView.layer.cornerRadius = 5
         cell.articleImageView.image = UIImage(data: articles[indexPath.row].image! as Data)
         cell.artiecleTitleLabel.text = articles[indexPath.row].title
+        
         
         
         return cell
@@ -45,6 +54,7 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     override func viewWillAppear(_ animated: Bool) {
