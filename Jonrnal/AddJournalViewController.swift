@@ -26,10 +26,9 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     //swiftlint:enable force_cast
     @IBAction func closeButtonAction(_ sender: UIButton) {
-        self.dismiss(animated: true) {
-            return
-        }
-    }
+        self.dismiss(animated: true, completion: {
+        })
+             }
     @IBOutlet weak var articleImageView: UIImageView!
     @IBOutlet weak var gradientImageView: UIImageView!
     @IBOutlet weak var selectImageLabel: UILabel!
