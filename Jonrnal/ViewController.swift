@@ -9,24 +9,41 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
+    var articles: [ArticleCoreData] = []
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    
     
     
     @IBOutlet weak var articleTableView: UITableView!
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return articles.count
     
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = articleTableView.dequeueReusableCell(withIdentifier: "articleCell", for: indexPath)
+        let cell = articleTableView.dequeueReusableCell(withIdentifier: "articleCell", for: indexPath) as! ArticleCell
+        cell.articleImageView.image = UIImage(data: articles[indexPath.row].image! as Data)
+        cell.artiecleTitleLabel.text = articles[indexPath.row].title
+        
+        
         return cell
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        do {
+            let tasks = try self.context.fetch(ArticleCoreData.fetchRequest())
+            
+            articles = (tasks as? [ArticleCoreData])!
+            //self.collectionView.reloadData()
+        } catch {}
     }
 
     override func didReceiveMemoryWarning() {

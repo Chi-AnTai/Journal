@@ -21,7 +21,78 @@ extension UIImageView {
 
 
 class AddJournalViewController: UIViewController {
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    @IBAction func closeButtonAction(_ sender: UIButton) {
+        self.dismiss(animated: true) {
+            return
+        }
+    }
+    @IBAction func selectPhotoAction(_ sender: UIButton) {
+        print("changing")
+    }
+    @IBOutlet weak var saveButton: UIButton!
+    
+    @IBAction func saveButtonAction(_ sender: UIButton) {
+        print("firstCheck")
+        print(ArticleImageView.image)
+        
+        if articleTitleTextField.text == "" {
+            print("i am here")
+        let alertController = UIAlertController(title: "錯誤", message: "沒有標題", preferredStyle: .alert)
+            
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (UIAlertAction) in
+            return
+        })
+        alertController.addAction(okAction)
+            self.present(
+                alertController,
+                animated: true,
+                completion: nil)
+            return
+            
+        }
+        if articleContentTextField.text == "" {
+            let alertController = UIAlertController(title: "錯誤", message: "沒有內文", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (UIAlertAction) in
+                return
+            })
+            alertController.addAction(okAction)
+            self.present(
+                alertController,
+                animated: true,
+                completion: nil)
+        return}
+        if ArticleImageView.image == nil {
+            let alertController = UIAlertController(title: "錯誤", message: "沒有圖片", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (UIAlertAction) in
+                return
+            })
+            alertController.addAction(okAction)
+            self.present(
+                alertController,
+                animated: true,
+                completion: nil)
+        return}
+        else {
+        
+//        let task = ArticleCoreData(context: context)
+//        task.title = articleTitleTextField.text
+//        task.content = articleContentTextField.text
+//        if let articleImage = ArticleImageView.image {
+//        if let imageData = UIImagePNGRepresentation(articleImage) {
+//            task.image = NSData(data: imageData)
+//        }
+//            }
+}
+        
+        
+        
+        
+        
+    }
     @IBOutlet weak var secondImageView: UIImageView!
     
     @IBOutlet weak var ArticleImageView: UIImageView!
@@ -34,6 +105,8 @@ class AddJournalViewController: UIViewController {
         ArticleImageView.addGradientLayer(frame: ArticleImageView.frame)
         ArticleImageView.tintColor = UIColor.white
         secondImageView.tintColor = UIColor.white
+        
+        saveButton.layer.cornerRadius = 22
 
         // Do any additional setup after loading the view.
     }
