@@ -274,8 +274,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="ArticleImageView" destination="AZM-hi-bNp" id="mE0-52-NAF"/>
                         <outlet property="articleContentTextView" destination="Dx4-tB-w3r" id="yjY-mV-9iN"/>
+                        <outlet property="articleImageView" destination="AZM-hi-bNp" id="8aG-2o-s5b"/>
                         <outlet property="articleTitleTextField" destination="QKj-qK-kFx" id="srW-UK-kHm"/>
                         <outlet property="gradientImageView" destination="PyJ-Si-qGF" id="3zP-BC-UFg"/>
                         <outlet property="saveButton" destination="PVe-9t-XHg" id="Cgr-Px-YI9"/>

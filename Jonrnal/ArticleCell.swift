@@ -19,5 +19,3 @@ class ArticleCell: UITableViewCell {
 
     @IBOutlet weak var shadowView: UIView!
 }
-
-

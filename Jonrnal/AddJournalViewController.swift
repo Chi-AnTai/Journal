@@ -16,60 +16,42 @@ extension UIImageView {
         gradient.locations = [0.0, 0.5]
         gradient.opacity = 0.85
         self.layer.addSublayer(gradient)
-        
     }
 }
-
-
-class AddJournalViewController: UIViewController, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-    
+class AddJournalViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var articleContentTextView: UITextView!
     var articleTitle: String?
     let imagePickerController = UIImagePickerController()
+    //swiftlint:disable force_cast
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
+    //swiftlint:enable force_cast
     @IBAction func closeButtonAction(_ sender: UIButton) {
         self.dismiss(animated: true) {
             return
         }
     }
-    
+    @IBOutlet weak var articleImageView: UIImageView!
     @IBOutlet weak var gradientImageView: UIImageView!
-    
     @IBOutlet weak var selectImageLabel: UILabel!
     @IBAction func selectPhotoAction(_ sender: UIButton) {
-        
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self
-        
         imagePickerController.mediaTypes = [kUTTypeImage as NSString as String]
         present(imagePickerController, animated: true, completion: nil)
-        print("changing")
-        
     }
-    
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        let imageNSURL = info[UIImagePickerControllerOriginalImage] as? NSURL
-//        //print("videoURL:\(String(describing: videoURL))")
-//        UIImage(data: Data)
         gradientImageView.isHidden = true
         selectImageLabel.isHidden = true
-        ArticleImageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        articleImageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
         secondImageView.isHidden = true
         selectImageLabel.text = nil
-        
         self.dismiss(animated: true, completion: nil) }
-    
-    
     @IBOutlet weak var saveButton: UIButton!
-    
     @IBAction func saveButtonAction(_ sender: UIButton) {
                 if articleTitleTextField.text == "" {
             print(articleContentTextView.text)
         let alertController = UIAlertController(title: "錯誤", message: "沒有標題", preferredStyle: .alert)
-            
-        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (UIAlertAction) in
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (_) in
             return
         })
         alertController.addAction(okAction)
@@ -78,12 +60,10 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
                 animated: true,
                 completion: nil)
             return
-            
         }
         if articleContentTextView.text == "" {
             let alertController = UIAlertController(title: "錯誤", message: "沒有內文", preferredStyle: .alert)
-            
-            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (UIAlertAction) in
+            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (_) in
                 return
             })
             alertController.addAction(okAction)
@@ -92,10 +72,9 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
                 animated: true,
                 completion: nil)
         return}
-        if ArticleImageView.image == nil {
+        if articleImageView.image == nil {
             let alertController = UIAlertController(title: "錯誤", message: "沒有圖片", preferredStyle: .alert)
-            
-            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (UIAlertAction) in
+            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: { (_) in
                 return
             })
             alertController.addAction(okAction)
@@ -104,50 +83,33 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
                 animated: true,
                 completion: nil)
         return}
-        if (articleTitle != nil)  {
-            print("uploading")
+        if articleTitle != nil {
             do {
                 let tasks = try self.context.fetch(ArticleCoreData.fetchRequest())
-                
                 let articles = (tasks as? [ArticleCoreData])!
-                for element in articles where articleTitle == element.title{
+                for element in articles where articleTitle == element.title {
                     if let title = articleTitleTextField.text, let content = articleContentTextView.text {
                         element.title = title
                         element.content = content
                     }
-                    if let articleImage = ArticleImageView.image {
+                    if let articleImage = articleImageView.image {
                         if let imageData = UIImagePNGRepresentation(articleImage) {
                             element.image = NSData(data: imageData)
                         }
                     }
-                    
-                    
-                    
-                 (UIApplication.shared.delegate as? AppDelegate)?.saveContext()   
-                    
+                 (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
                 }
-            print("uploading success")
-            }
-                catch {}
-            
+            } catch {}
         self.dismiss(animated: true, completion: {
-            
         })
         return
-        }
-        else {
-        print("normal saving")
+        } else {
         let task = ArticleCoreData(context: context)
-            if let title = articleTitleTextField.text, let content = articleContentTextView.text {
+            guard let title = articleTitleTextField.text, let content = articleContentTextView.text else {return}
             task.title = title
             task.content = content
-            }
-        
-        
-        if let articleImage = ArticleImageView.image {
-        if let imageData = UIImagePNGRepresentation(articleImage) {
+        if let articleImage = articleImageView.image, let imageData = UIImagePNGRepresentation(articleImage) {
             task.image = NSData(data: imageData)
-        }
             }
             (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
             self.dismiss(animated: true, completion: {
@@ -155,28 +117,26 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
 }
     }
     @IBOutlet weak var secondImageView: UIImageView!
-    @IBOutlet weak var ArticleImageView: UIImageView!
     @IBOutlet weak var articleTitleTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(articleTitle)
+
         if articleTitle == nil {
-        gradientImageView.addGradientLayer(frame: ArticleImageView.frame)
-        ArticleImageView.tintColor = UIColor.white
-            secondImageView.tintColor = UIColor.white }
-        else {
+        gradientImageView.addGradientLayer(frame: articleImageView.frame)
+        articleImageView.tintColor = UIColor.white
+            secondImageView.tintColor = UIColor.white } else {
         do {
             let tasks = try self.context.fetch(ArticleCoreData.fetchRequest())
             let articles = (tasks as? [ArticleCoreData])!
             for element in articles where articleTitle == element.title {
                 gradientImageView.isHidden = true
                 selectImageLabel.isHidden = true
-                print(element.content)
                 secondImageView.isHidden = true
                 articleTitleTextField.text = element.title
                 if let content = element.content {
                     articleContentTextView.text = content }
-                ArticleImageView.image = UIImage(data: element.image as! Data)
+                if let data = element.image as Data? {
+                    articleImageView.image = UIImage(data: data)}
             }
         } catch {}
         }
