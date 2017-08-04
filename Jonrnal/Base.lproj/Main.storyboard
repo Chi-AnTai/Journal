@@ -67,6 +67,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="212"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YjF-lK-Wa3">
+                                                    <rect key="frame" x="22" y="12" width="331" height="136"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="331" id="5Cy-4y-nrL"/>
+                                                        <constraint firstAttribute="height" constant="136" id="anE-rB-qWv"/>
+                                                    </constraints>
+                                                </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3xx-8b-jQn">
                                                     <rect key="frame" x="20" y="10" width="335" height="140"/>
                                                     <constraints>
@@ -103,12 +111,14 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="aRR-Ml-mGP" firstAttribute="centerX" secondItem="o6o-Hm-h48" secondAttribute="centerX" id="GMB-zs-5fy"/>
+                                                <constraint firstItem="YjF-lK-Wa3" firstAttribute="centerX" secondItem="3xx-8b-jQn" secondAttribute="centerX" id="JVg-VA-cHU"/>
                                                 <constraint firstItem="3xx-8b-jQn" firstAttribute="top" secondItem="o6o-Hm-h48" secondAttribute="top" constant="10" id="JXo-9q-3mn"/>
                                                 <constraint firstItem="pdG-ZE-7fs" firstAttribute="top" secondItem="dU5-cm-XeX" secondAttribute="bottom" constant="19.800000000000001" id="TYm-93-w1C"/>
                                                 <constraint firstItem="3xx-8b-jQn" firstAttribute="centerX" secondItem="o6o-Hm-h48" secondAttribute="centerX" id="V7k-nS-R9g"/>
                                                 <constraint firstItem="dU5-cm-XeX" firstAttribute="centerX" secondItem="o6o-Hm-h48" secondAttribute="centerX" id="dab-Uf-yfh"/>
                                                 <constraint firstItem="dU5-cm-XeX" firstAttribute="top" secondItem="3xx-8b-jQn" secondAttribute="bottom" constant="16" id="gqj-Fh-C9Z"/>
                                                 <constraint firstItem="pdG-ZE-7fs" firstAttribute="centerX" secondItem="o6o-Hm-h48" secondAttribute="centerX" id="tZM-fc-gAB"/>
+                                                <constraint firstItem="YjF-lK-Wa3" firstAttribute="centerY" secondItem="3xx-8b-jQn" secondAttribute="centerY" id="yD7-Ur-467"/>
                                                 <constraint firstItem="aRR-Ml-mGP" firstAttribute="top" secondItem="dU5-cm-XeX" secondAttribute="bottom" constant="17" id="zgm-SE-avG"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -116,6 +126,7 @@
                                             <outlet property="articleImageView" destination="3xx-8b-jQn" id="Ezx-c2-r3S"/>
                                             <outlet property="artiecleTitleLabel" destination="dU5-cm-XeX" id="IW1-42-dfw"/>
                                             <outlet property="circleImageView" destination="aRR-Ml-mGP" id="gEE-n4-gr7"/>
+                                            <outlet property="shadowView" destination="YjF-lK-Wa3" id="zTL-R8-LhB"/>
                                             <segue destination="Eyz-yK-yUl" kind="show" id="u1V-by-V1F"/>
                                         </connections>
                                     </tableViewCell>

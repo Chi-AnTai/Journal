@@ -150,6 +150,10 @@ class AddJournalViewController: UIViewController, UIImagePickerControllerDelegat
         }
             }
             (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+            self.dismiss(animated: true, completion: {
+                
+            })
+
 }
         
         

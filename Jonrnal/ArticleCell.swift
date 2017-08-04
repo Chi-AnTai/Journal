@@ -17,6 +17,7 @@ class ArticleCell: UITableViewCell {
 
     @IBOutlet weak var circleImageView: UIImageView!
 
+    @IBOutlet weak var shadowView: UIView!
 }
 
 

@@ -37,6 +37,7 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = articleTableView.dequeueReusableCell(withIdentifier: "articleCell", for: indexPath) as! ArticleCell
         cell.articleImageView.clipsToBounds = true
+        //cell.articleImageView.layer.masksToBounds = true
         cell.articleImageView.layer.cornerRadius = 8
         
         cell.circleImageView.clipsToBounds = true
@@ -47,6 +48,20 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
         cell.articleImageView.image = UIImage(data: articles[indexPath.row].image! as Data)
         cell.artiecleTitleLabel.text = articles[indexPath.row].title
         
+        cell.shadowView.layer.shadowColor = UIColor.darkGray.cgColor
+        cell.shadowView.layer.shadowRadius = 8
+        cell.shadowView.layer.shadowOffset = CGSize(width: 1, height: 1)
+        cell.shadowView.layer.shadowOpacity = 0.5
+        
+//        let shadowLayer = CALayer()
+//        shadowLayer.shadowColor = UIColor.darkGray.cgColor
+//        
+//        shadowLayer.shadowOffset = CGSize(width: 0, height: 1)
+//        shadowLayer.shadowOpacity = 1
+//        shadowLayer.shadowRadius = 3
+//        cell.articleImageView.layer.addSublayer(shadowLayer)
+        
+        
         
         
         return cell
@@ -54,6 +69,9 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         
         // Do any additional setup after loading the view, typically from a nib.
     }
